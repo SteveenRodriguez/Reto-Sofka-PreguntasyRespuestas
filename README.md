@@ -1,0 +1,1 @@
+Reto tecnico de sofka - preguntas y respuestas.
