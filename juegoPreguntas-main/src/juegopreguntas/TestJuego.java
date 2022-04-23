@@ -63,7 +63,6 @@ public class TestJuego {
         ronda("ronda 3");
         ronda("ronda 4");
         ronda("ronda 5");
-
         this.jugador.setPuntosJugador(this.puntosJugador);
         System.out.println("Congratulations " + this.jugador.getNombreJugador()
                 + "\n Puntaje Total = " + this.puntosJugador);
@@ -74,12 +73,12 @@ public class TestJuego {
     private void ronda(String ronda) {
         System.out.println(ronda);
         System.out.println("Si deseas retirarte digite \"salir\"");
-
-        escogerPregunta("tecnologia", ronda);
-        escogerPregunta("cultura", ronda);
-        escogerPregunta("biología", ronda);
-        escogerPregunta("matematicas", ronda);
-        escogerPregunta("español", ronda);
+        // buscar preguntas nuevas
+        escogerPregunta("arte", ronda);
+        escogerPregunta("deporte", ronda);
+        escogerPregunta("geografia", ronda);
+        escogerPregunta("entretenimiento", ronda);
+        escogerPregunta("ciencia", ronda);
     }
 
     private void escogerPregunta(String categoria, String nivel) {
@@ -89,7 +88,7 @@ public class TestJuego {
         int opcion = 0;
         do {
             pregunta = getPregunta(categoria);
-            sinMostrar = mostrarPregunta(pregunta);
+            sinMostrar = listarPregunta(pregunta);
         } while (sinMostrar);
 
         boolean ciclo;
@@ -101,7 +100,7 @@ public class TestJuego {
                     this.jugador.setPuntosJugador(this.puntosJugador);
                     updateHistoricoJuego(this.jugador);
                     System.exit(0);
-                }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+                }
                 opcion = Integer.parseInt(opcTexto);
                 if (opcion < 1 || opcion > 4) {
                     System.out.println("debe ingresar un valor de los que estan en las respuestas");
@@ -134,7 +133,7 @@ public class TestJuego {
         return valorPregunta;
     }
 
-    private boolean mostrarPregunta(Preguntas pregunta) {
+    private boolean listarPregunta(Preguntas pregunta) {
         boolean contienePregunta = this.preguntasSeleccionadas.contains(pregunta);
         if (!contienePregunta) {
             this.preguntasSeleccionadas.add(pregunta);

@@ -1,23 +1,30 @@
-package juegopreguntas;
+package com.softka.juegopreguntas.controller;
+
+
+import com.softka.juegopreguntas.jugador.Jugador;
+import com.softka.juegopreguntas.preguntas.MostrarPregunta;
+import com.softka.juegopreguntas.preguntas.Preguntas;
 
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
-import juegopreguntas.preguntas.Preguntas;
 
 public class TestJuego {
 
     private final ArrayList<Preguntas> preguntasSeleccionadas;
     private final Jugador jugador;
     private int puntosJugador;
+    private MostrarPregunta mostrarPregunta;
+    private Preguntas preguntas;
 
     public TestJuego() {
         this.preguntasSeleccionadas = new ArrayList<>();
         this.jugador = new Jugador();
         this.puntosJugador = 0;
+        this.mostrarPregunta= new MostrarPregunta(preguntas);
     }
 
-    void bienvenidaJuego() {
+    public void bienvenidaJuego() {
         Scanner sc = new Scanner(System.in);
         System.out.println("BIENVENIDO A QUIEN QUIERE SER INTELIGENTE \n\n");
         System.out.println("1. Comenzar a jugar");
@@ -63,9 +70,8 @@ public class TestJuego {
         ronda("ronda 3");
         ronda("ronda 4");
         ronda("ronda 5");
-
         this.jugador.setPuntosJugador(this.puntosJugador);
-        System.out.println("Congratulations " + this.jugador.getNombreJugador()
+        System.out.println("Congratulations " + this.jugador.nombreJugador()
                 + "\n Puntaje Total = " + this.puntosJugador);
         updateHistoricoJuego(this.jugador);
         bienvenidaJuego();
@@ -74,12 +80,12 @@ public class TestJuego {
     private void ronda(String ronda) {
         System.out.println(ronda);
         System.out.println("Si deseas retirarte digite \"salir\"");
-
-        escogerPregunta("tecnologia", ronda);
-        escogerPregunta("cultura", ronda);
-        escogerPregunta("biología", ronda);
-        escogerPregunta("matematicas", ronda);
-        escogerPregunta("español", ronda);
+        // buscar preguntas nuevas
+        escogerPregunta("arte", ronda);
+        escogerPregunta("deporte", ronda);
+        escogerPregunta("geografia", ronda);
+        escogerPregunta("entretenimiento", ronda);
+        escogerPregunta("ciencia", ronda);
     }
 
     private void escogerPregunta(String categoria, String nivel) {
@@ -97,11 +103,11 @@ public class TestJuego {
             try {
                 String opcTexto = scanner.nextLine();
                 if (opcTexto.equalsIgnoreCase("salir")) {
-                    System.out.println("Gracias por Jugar " + this.jugador.getNombreJugador());
+                    System.out.println("Gracias por Jugar " + this.jugador.nombreJugador());
                     this.jugador.setPuntosJugador(this.puntosJugador);
                     updateHistoricoJuego(this.jugador);
                     System.exit(0);
-                }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+                }
                 opcion = Integer.parseInt(opcTexto);
                 if (opcion < 1 || opcion > 4) {
                     System.out.println("debe ingresar un valor de los que estan en las respuestas");
@@ -126,7 +132,7 @@ public class TestJuego {
         do {
             int iteracion = random.nextInt(valores.length);
             valorPregunta = valores[iteracion];
-            if (valorPregunta.getCategoriaPregunta().equals(categoriaPregunta)) {
+            if (valorPregunta.categoriaPregunta().equals(categoriaPregunta)) {
                 preguntaEncontrada = false;
             }
         } while (preguntaEncontrada);
